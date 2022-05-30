@@ -34,11 +34,11 @@ public class Controller {
         return "Persona eliminada";
     }
 
-    @PutMapping("/update/({id}")
-    public String updatePersona(@PathVariable Integer id, @RequestBody PersonaDTO personaDTO) throws Exception {
+    @PutMapping("/update/{id}")
+    public PersonaEnt updatePersona(@PathVariable Integer id, @RequestBody PersonaDTO personaDTO) throws Exception {
         PersonaEnt personaEnt = personaEntService.getPersonaByID(id);
         personaEntService.updatePerson(personaEnt,personaDTO);
-        return "Persona editada";
+        return personaEnt;
     }
 
     @GetMapping("/id/{id}")
