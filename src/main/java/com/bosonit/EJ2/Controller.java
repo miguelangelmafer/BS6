@@ -21,7 +21,7 @@ public class Controller {
     private ModelMapper modelMapper;
 
     @PostMapping("/add")
-    public PersonaDTO addPersona(@RequestBody PersonaDTO personaDTO) {
+    public PersonaDTO addPersona(@RequestBody PersonaDTO personaDTO) throws Exception {
         PersonaEnt personaEnt = personaEntService.addPersona(modelMapper.map(personaDTO, PersonaEnt.class));
         personaDTO.setId_persona(personaEnt.getId_persona());
         return personaDTO;
@@ -42,6 +42,8 @@ public class Controller {
     }
 
     @GetMapping("/id/{id}")
+
+
 
     public PersonaDTO getPersonByID(@PathVariable Integer id) throws Exception {
         try {

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PersonaRepository extends JpaRepository<PersonaEnt,Integer> {
-    List<PersonaEnt> findByUsuario(String usuario);
+    List<PersonaEnt> findByName(String name);
 }

@@ -11,8 +11,14 @@ public class PersonaEntService {
     @Autowired
     PersonaRepository personaRepository;
 
-    public PersonaEnt addPersona(PersonaEnt personaEnt){
-        return personaRepository.save(personaEnt);
+    public PersonaEnt addPersona(PersonaEnt personaEnt) throws Exception{
+        if(personaEnt.getUsuario().length()>10){throw new Exception("El usuario no debe tener más de 10 caracteres");}
+
+        if(personaEnt.getUsuario() == null || personaEnt.getPassword() == null || personaEnt.getName() == null ||
+        personaEnt.getCompany_email() == null || personaEnt.getPersona_email() == null || personaEnt.getCity() == null ||
+        personaEnt.getActive() == null || personaEnt.getCreated_date() == null){throw new Exception("Alguno de los campos no puede ser nulo");}
+                else{
+        return personaRepository.save(personaEnt);}
     }
 
     public PersonaEnt getPersonaByID(Integer id) throws Exception
@@ -23,7 +29,7 @@ public class PersonaEntService {
     //getnombre
 
     public List <PersonaEnt> getPersonByName(String name){
-        List <PersonaEnt> listPersona = personaRepository.findByUsuario(name);
+        List <PersonaEnt> listPersona = personaRepository.findByName(name);
         return listPersona;
     }
 
