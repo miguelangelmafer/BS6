@@ -2,6 +2,7 @@ package com.bosonit.EJ2;
 
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,30 +41,35 @@ public class Controller {
         return "Persona editada";
     }
 
-
     @GetMapping("/id/{id}")
-    //REVISAR DTO
-    public PersonaEnt getPersonByID(@PathVariable Integer id) throws Exception {
+
+    public PersonaDTO getPersonByID(@PathVariable Integer id) throws Exception {
         try {
             PersonaEnt personaEnt = personaEntService.getPersonaByID(id);
-            return personaEnt;
+            PersonaDTO personaDTO = modelMapper.map(personaEnt,PersonaDTO.class);
+            return personaDTO;
         } catch (Exception e) {
-            throw new Exception("No se encuenta la persona");
+            throw new Exception("No se encuentra la persona");
         }
     }
 
-    //REVISAR DTO
     @GetMapping("/name/{nombre}")
-    public List<PersonaEnt> getPersonByName(@PathVariable String nombre) throws Exception {
-        return personaEntService.getPersonByName(nombre);
-
+    public List<PersonaDTO> getPersonByName(@PathVariable String nombre) throws Exception {
+        List <PersonaEnt> personaEntList = personaEntService.getPersonByName(nombre);
+        TypeToken<List<PersonaDTO>> typeToken = new TypeToken<>() {
+        };
+        List<PersonaDTO> personaDTOList = modelMapper.map(personaEntList, typeToken.getType());
+        return personaDTOList;
     }
+
     @GetMapping("/all")
-    public List<PersonaEnt> getAllPerson(){
-        return personaEntService.getAllPerson();
-
+    public List<PersonaDTO> getAllPerson(){
+        List <PersonaEnt> personaEntList = personaEntService.getAllPerson();
+        TypeToken<List<PersonaDTO>> typeToken = new TypeToken<>() {
+        };
+        List<PersonaDTO> personaDTOList = modelMapper.map(personaEntList, typeToken.getType());
+        return personaDTOList;
     }
-
 
 }
 

@@ -20,6 +20,12 @@ public class PersonaEntService {
         return personaRepository.findById(id).orElseThrow(()-> new Exception("Persona no encontrada"));
     }
 
+    //getnombre
+
+    public List <PersonaEnt> getPersonByName(String name){
+        List <PersonaEnt> listPersona = personaRepository.findByUsuario(name);
+        return listPersona;
+    }
 
     //getall
 
@@ -28,19 +34,10 @@ public class PersonaEntService {
         return personaList;
     }
 
-
     //delete
 
     public void deletePerson(PersonaEnt personaEnt){
         personaRepository.delete(personaEnt);
-    }
-
-
-    //getnombre
-
-    public List <PersonaEnt> getPersonByName(String name){
-        List <PersonaEnt> listPersona = personaRepository.findByUsuario(name);
-        return listPersona;
     }
 
     //update
